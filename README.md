@@ -11,7 +11,7 @@ pip install -r requirements.txt
 python download.py
 ```
 
-`download.py` fetches the prepared workloads (about 260 MB) from this repository's [GitHub release](../../releases) into `data/`. They contain everything the experiments need, including the judge's labels, so no API key or GPU is required (see [Data](#data)).
+`download.py` fetches the prepared workloads (about 260 MB) from the repository's [GitHub release](https://github.com/BaranAtalar/Multi-Turn-Semantic-Caching/releases) into `data/`. They contain everything the experiments need, including the judge's labels, so no API key or GPU is required (see [Data](#data)).
 
 ## Reproducing the results
 

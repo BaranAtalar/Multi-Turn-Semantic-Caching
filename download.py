@@ -2,14 +2,11 @@
 
     python download.py
 
-The archive is attached to this repository's GitHub release. The release URL is taken from the
-repository you cloned (git remote "origin"); pass --url to download it from elsewhere, or download
-data.zip from the Releases page by hand and run `python download.py --file data.zip`.
+The archive is attached to the repository's GitHub release (tag data-v1). To install a copy you
+downloaded by hand, run `python download.py --file data.zip`.
 """
 import argparse
 import hashlib
-import re
-import subprocess
 import sys
 import urllib.error
 import urllib.request
@@ -17,22 +14,10 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-TAG, ASSET = "data-v1", "data.zip"
+REPO, TAG, ASSET = "BaranAtalar/Multi-Turn-Semantic-Caching", "data-v1", "data.zip"
+URL = f"https://github.com/{REPO}/releases/download/{TAG}/{ASSET}"
 SHA256 = "ab07321cc5d5e4abc1b060bbf2b39f01717f7b18070de10b8c49a4948b31db7a"
 FILES = ["states.parquet", "embeddings.npz", "judge_labels.parquet", "risk_training_pairs.parquet"]
-
-
-def release_url():
-    try:
-        remote = subprocess.run(["git", "-C", str(ROOT), "remote", "get-url", "origin"],
-                                capture_output=True, text=True, check=True).stdout.strip()
-    except (OSError, subprocess.CalledProcessError):
-        remote = ""
-    m = re.search(r"github\.com[:/]([^/]+)/([^/]+?)(?:\.git)?/?$", remote)
-    if not m:
-        sys.exit("Could not find the GitHub repository of this folder. Download data.zip from the repository's "
-                 "Releases page and run `python download.py --file data.zip`, or pass --url.")
-    return f"https://github.com/{m[1]}/{m[2]}/releases/download/{TAG}/{ASSET}"
 
 
 def fetch(url, dest):
@@ -54,12 +39,12 @@ def main():
     args = p.parse_args()
     archive = args.file or ROOT / ASSET
     if args.file is None:
-        url = args.url or release_url()
+        url = args.url or URL
         try:
             fetch(url, archive)
         except urllib.error.URLError as exc:
-            sys.exit(f"Could not download {url} ({exc}). If the repository is private, download data.zip from its "
-                     "Releases page and run `python download.py --file data.zip`.")
+            sys.exit(f"Could not download {url} ({exc}). Download data.zip from the repository's Releases page "
+                     "and run `python download.py --file data.zip`.")
     if SHA256:
         h = hashlib.sha256()
         with open(archive, "rb") as f:
