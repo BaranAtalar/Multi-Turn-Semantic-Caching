@@ -98,12 +98,14 @@ The requests and responses come from [Taskmaster-3](https://github.com/google-re
 ## Citation
 
 ```bibtex
-@misc{atalar2026multiturn,
-  author        = {Atalar, Baran and Beyene, Selly and Liu, Xutong and Joe-Wong, Carlee},
-  title         = {Multi-Turn Semantic Caching for Low-Cost {LLM} Serving},
-  year          = {2026},
-  eprint        = {2611.01077},
-  archivePrefix = {arXiv},
-  primaryClass  = {cs.LG}
+@misc{atalar2026multiturnsemanticcachinglowcost,
+      title={Multi-Turn Semantic Caching for Low-Cost LLM Serving}, 
+      author={Baran Atalar and Selly Beyene and Xutong Liu and Carlee Joe-Wong},
+      year={2026},
+      eprint={2611.01077},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      note={arXiv preprint arXiv:2611.01077 (2026)}
+ 
 }
 ```
